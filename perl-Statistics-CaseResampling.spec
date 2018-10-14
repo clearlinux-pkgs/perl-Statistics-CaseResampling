@@ -4,19 +4,29 @@
 #
 Name     : perl-Statistics-CaseResampling
 Version  : 0.15
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-CaseResampling-0.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-CaseResampling-0.15.tar.gz
 Summary  : 'Efficient resampling and calculation of medians with confidence intervals'
 Group    : Development/Tools
 License  : GPL-1.0
-Requires: perl-Statistics-CaseResampling-lib
-Requires: perl-Statistics-CaseResampling-man
+Requires: perl-Statistics-CaseResampling-lib = %{version}-%{release}
+BuildRequires : buildreq-cpan
 
 %description
 NAME
 Statistics::CaseResampling - Efficient resampling and calculation of
 medians with confidence intervals
+
+%package dev
+Summary: dev components for the perl-Statistics-CaseResampling package.
+Group: Development
+Requires: perl-Statistics-CaseResampling-lib = %{version}-%{release}
+Provides: perl-Statistics-CaseResampling-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-Statistics-CaseResampling package.
+
 
 %package lib
 Summary: lib components for the perl-Statistics-CaseResampling package.
@@ -24,14 +34,6 @@ Group: Libraries
 
 %description lib
 lib components for the perl-Statistics-CaseResampling package.
-
-
-%package man
-Summary: man components for the perl-Statistics-CaseResampling package.
-Group: Default
-
-%description man
-man components for the perl-Statistics-CaseResampling package.
 
 
 %prep
@@ -60,9 +62,9 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -71,12 +73,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Statistics/CaseResampling.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Statistics/CaseResampling.pm
+
+%files dev
+%defattr(-,root,root,-)
+/usr/share/man/man3/Statistics::CaseResampling.3
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/Statistics/CaseResampling/CaseResampling.so
-
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man3/Statistics::CaseResampling.3
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/Statistics/CaseResampling/CaseResampling.so
