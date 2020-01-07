@@ -4,13 +4,13 @@
 #
 Name     : perl-Statistics-CaseResampling
 Version  : 0.15
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-CaseResampling-0.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-CaseResampling-0.15.tar.gz
 Summary  : 'Efficient resampling and calculation of medians with confidence intervals'
 Group    : Development/Tools
 License  : GPL-1.0
-Requires: perl-Statistics-CaseResampling-lib = %{version}-%{release}
+Requires: perl-Statistics-CaseResampling-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
 
 %description
@@ -21,29 +21,31 @@ medians with confidence intervals
 %package dev
 Summary: dev components for the perl-Statistics-CaseResampling package.
 Group: Development
-Requires: perl-Statistics-CaseResampling-lib = %{version}-%{release}
 Provides: perl-Statistics-CaseResampling-devel = %{version}-%{release}
+Requires: perl-Statistics-CaseResampling = %{version}-%{release}
 
 %description dev
 dev components for the perl-Statistics-CaseResampling package.
 
 
-%package lib
-Summary: lib components for the perl-Statistics-CaseResampling package.
-Group: Libraries
+%package perl
+Summary: perl components for the perl-Statistics-CaseResampling package.
+Group: Default
+Requires: perl-Statistics-CaseResampling = %{version}-%{release}
 
-%description lib
-lib components for the perl-Statistics-CaseResampling package.
+%description perl
+perl components for the perl-Statistics-CaseResampling package.
 
 
 %prep
 %setup -q -n Statistics-CaseResampling-0.15
+cd %{_builddir}/Statistics-CaseResampling-0.15
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -53,7 +55,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -73,12 +75,12 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/Statistics/CaseResampling.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/Statistics::CaseResampling.3
 
-%files lib
+%files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/Statistics/CaseResampling/CaseResampling.so
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/Statistics/CaseResampling.pm
+/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/Statistics/CaseResampling/CaseResampling.so
