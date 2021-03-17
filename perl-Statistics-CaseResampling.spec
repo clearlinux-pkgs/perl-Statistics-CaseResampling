@@ -4,7 +4,7 @@
 #
 Name     : perl-Statistics-CaseResampling
 Version  : 0.15
-Release  : 13
+Release  : 14
 URL      : https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-CaseResampling-0.15.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Statistics-CaseResampling-0.15.tar.gz
 Summary  : 'Efficient resampling and calculation of medians with confidence intervals'
@@ -82,5 +82,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Statistics/CaseResampling.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/auto/Statistics/CaseResampling/CaseResampling.so
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Statistics/CaseResampling.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/auto/Statistics/CaseResampling/CaseResampling.so
